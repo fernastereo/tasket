@@ -1,4 +1,5 @@
 import React from "react";
+import _get from "lodash/get";
 
 export default function DataTable(props) {
   const { columns = [], rows = [] } = props;
@@ -14,12 +15,14 @@ export default function DataTable(props) {
         </tr>
       </thead>
       <tbody>
-        {rows.map((row, index) => {
+        {rows.map(row => {
           return (
-            <tr key={index}>
-              {columns.map((column, rowIndex) => {
+            <tr key={row.id}>
+              {columns.map(column => {
                 return (
-                  <td key={`${column.key}-${rowIndex}`}>{row[column.key]}</td>
+                  <td key={`${column.key}-${row.id}`}>
+                    {column.path ? _get(row, column.path) : row[column.key]}
+                  </td>
                 );
               })}
             </tr>
