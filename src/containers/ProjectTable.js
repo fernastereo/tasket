@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import DataTable from "./../components/DataTable";
 import Pagination from "../components/Pagination";
 import { getProjects, getProjectsCount } from "./../services/projects";
 
-export default class ProjectTable extends Component {
+export default class ProjectTable extends PureComponent {
   state = {
     columns: [
       { key: "name", label: "Nombre" },

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-export default function ListGroup(props) {
+function ListGroup(props) {
   const { items = [], itemKey, itemLabel, selected, onSelect } = props;
 
   const onSelected = nextSelected => {
@@ -29,3 +29,5 @@ export default function ListGroup(props) {
     </ul>
   );
 }
+
+export default memo(ListGroup);
