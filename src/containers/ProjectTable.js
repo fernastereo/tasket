@@ -1,14 +1,33 @@
 import React, { PureComponent } from "react";
 import DataTable from "./../components/DataTable";
 import Pagination from "../components/Pagination";
-import { getProjects, getProjectsCount } from "./../services/projects";
+import {
+  getProjects,
+  getProjectsCount,
+  deleteProject,
+} from "./../services/projects";
 
 export default class ProjectTable extends PureComponent {
   state = {
     columns: [
-      { key: "name", label: "Nombre" },
-      { key: "description", label: "Descripción" },
+      { key: "name", label: "Nombre", path: "name" },
+      { key: "description", label: "Descripción", path: "description" },
       { key: "user", label: "Usuario", path: "user.name" },
+      {
+        key: "delete",
+        label: "Eliminar",
+        content: project => {
+          return (
+            <button
+              className="btn btn-danger"
+              type="button"
+              onClick={() => this.removeProject(project.id)}
+            >
+              Eliminar
+            </button>
+          );
+        },
+      },
     ],
     rows: [],
     currentPage: 1,
@@ -46,6 +65,12 @@ export default class ProjectTable extends PureComponent {
   changePage = page => {
     this.setState({
       currentPage: page,
+    });
+  };
+
+  removeProject = id => {
+    deleteProject(id).then(() => {
+      this._loadData();
     });
   };
 

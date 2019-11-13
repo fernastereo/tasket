@@ -26,6 +26,12 @@ export function postProject({ name, description }) {
   }).then(response => response.json());
 }
 
+export function deleteProject(id) {
+  return fetch(`${BASE_URL}/${id}`, {
+    method: "DELETE",
+  }).then(response => response.json());
+}
+
 function concatFilters(filters, wildcard) {
   const filterString = filters.map(filter => filter.join("=")).join("&");
   return filterString ? `${wildcard}${filterString}` : "";

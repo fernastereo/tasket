@@ -21,7 +21,7 @@ export default function DataTable(props) {
               {columns.map(column => {
                 return (
                   <td key={`${column.key}-${row.id}`}>
-                    {column.path ? _get(row, column.path) : row[column.key]}
+                    {column.path ? _get(row, column.path) : column.content(row)}
                   </td>
                 );
               })}
