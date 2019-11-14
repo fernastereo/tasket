@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { signIn } from "./../services/auth";
+import { setToken } from "./../utils/token";
 
 export default class SignIn extends Component {
   handleSubmit = event => {
@@ -10,8 +11,9 @@ export default class SignIn extends Component {
     } = event.target.elements;
 
     signIn({ email, password }).then(data => {
-      //this.props.history.push("/");
-      console.log(data);
+      const { token = "" } = data;
+      setToken(token);
+      this.props.history.push("/");
     });
   };
 
