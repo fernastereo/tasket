@@ -28,7 +28,7 @@ export default function NavBar() {
           </NavLink>
         </ul>
         <ul className="navbar-nav">
-          <NavLink to="/sign-in" className="nav-item">
+          <NavLink to="/signin" className="nav-item">
             <span className="nav-link">Sign In</span>
           </NavLink>
         </ul>
