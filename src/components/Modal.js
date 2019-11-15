@@ -22,7 +22,7 @@ export default class Modal extends Component {
         role="dialog"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
-        style={{ display: "block" }}
+        style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
