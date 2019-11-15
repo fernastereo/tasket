@@ -4,8 +4,9 @@ import ProjectForm from "./../containers/ProjectForm";
 import ListGroup from "./../components/ListGroup";
 import { getUsers } from "./../services/users";
 import { postProject } from "./../services/projects";
+import Modal from "./../components/Modal";
 
-export default class App extends Component {
+export default class Projects extends Component {
   state = {
     users: [],
     userId: undefined,
@@ -21,18 +22,6 @@ export default class App extends Component {
     });
   }
 
-  toggleForm = () => {
-    const { showForm } = this.state;
-    this.setState({ showForm: !showForm });
-  };
-
-  createProject = project => {
-    postProject(project).then(data => {
-      this.toggleForm();
-      this.setState({ filters: [] });
-    });
-  };
-
   selectUser = userId => {
     this.setState(
       {
@@ -44,6 +33,18 @@ export default class App extends Component {
         });
       }
     );
+  };
+
+  toggleForm = () => {
+    const { showForm } = this.state;
+    this.setState({ showForm: !showForm });
+  };
+
+  createProject = project => {
+    postProject(project).then(data => {
+      this.toggleForm();
+      this.setState({ filters: [] });
+    });
   };
 
   _makeFilters = () => {
@@ -68,7 +69,11 @@ export default class App extends Component {
                 Agregar
               </button>
             </p>
-            <ProjectForm show={showForm} onSubmit={this.createProject} />
+            {showForm ? (
+              <Modal title="hola" onClose={this.toggleForm}>
+                <ProjectForm onSubmit={this.createProject} />
+              </Modal>
+            ) : null}
             <ProjectTable filters={filters} />
           </div>
           <div className="col-lg-4">
