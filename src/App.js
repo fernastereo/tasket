@@ -4,6 +4,7 @@ import NavBar from "./containers/NavBar";
 //import Projects from "./pages/Projects";
 //import Tasks from "./pages/Tasks";
 import SignIn from "./pages/SignIn";
+import SignOut from "./pages/SignOut";
 import userContext from "./containers/UserContext";
 import "./App.css";
 
@@ -21,10 +22,16 @@ export default class App extends React.Component {
     this.setState({ user });
   };
 
+  clearUser = () => {
+    this.setState({ user: { email: undefined } });
+  };
+
   render() {
     const { user } = this.state;
     return (
-      <userContext.Provider value={{ user, setUser: this.setUser }}>
+      <userContext.Provider
+        value={{ user, setUser: this.setUser, clearUser: this.clearUser }}
+      >
         <NavBar />
         <Switch>
           <Route
@@ -59,6 +66,7 @@ export default class App extends React.Component {
             }}
           />
           <Route path="/signin" component={SignIn} />
+          <Route path="/signout" component={SignOut} />
           <Redirect to="/" />
         </Switch>
       </userContext.Provider>

@@ -34,9 +34,14 @@ export default function NavBar() {
             {context => {
               const { user: { email = "" } = {} } = context;
               return email ? (
-                <NavLink to="/profile" className="nav-item">
-                  <span className="nav-link">{email}</span>
-                </NavLink>
+                <>
+                  <NavLink to="/profile" className="nav-item">
+                    <span className="nav-link">{email}</span>
+                  </NavLink>
+                  <NavLink to="/signout" className="nav-item">
+                    <span className="nav-link">Sign Out</span>
+                  </NavLink>
+                </>
               ) : (
                 <NavLink to="/signin" className="nav-item">
                   <span className="nav-link">Ingresar</span>
