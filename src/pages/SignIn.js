@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { signIn } from "./../services/auth";
 import { setToken } from "./../utils/token";
+import userContext from "./../containers/UserContext";
 
 export default class SignIn extends Component {
+  static contextType = userContext;
+
   handleSubmit = event => {
     event.preventDefault();
     const {
@@ -13,6 +16,7 @@ export default class SignIn extends Component {
     signIn({ email, password }).then(data => {
       const { token = "" } = data;
       setToken(token);
+      this.context.setUser({ email });
       this.props.history.push("/");
     });
   };

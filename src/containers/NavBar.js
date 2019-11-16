@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import userContext from "./UserContext";
+
 export default function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,9 +30,20 @@ export default function NavBar() {
           </NavLink>
         </ul>
         <ul className="navbar-nav">
-          <NavLink to="/signin" className="nav-item">
-            <span className="nav-link">Sign In</span>
-          </NavLink>
+          <userContext.Consumer>
+            {context => {
+              const { user: { email = "" } = {} } = context;
+              return email ? (
+                <NavLink to="/profile" className="nav-item">
+                  <span className="nav-link">{email}</span>
+                </NavLink>
+              ) : (
+                <NavLink to="/signin" className="nav-item">
+                  <span className="nav-link">Ingresar</span>
+                </NavLink>
+              );
+            }}
+          </userContext.Consumer>
         </ul>
       </div>
     </nav>
