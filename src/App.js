@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
 import userContext from "./containers/UserContext";
 import "./App.css";
+import ProtectedRoute from "./containers/ProtectedRoute";
 
 const Projects = lazy(() => import("./pages/Projects"));
 const Tasks = lazy(() => import("./pages/Tasks"));
@@ -34,37 +35,9 @@ export default class App extends React.Component {
       >
         <NavBar />
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={() => {
-              return (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Projects />
-                </Suspense>
-              );
-            }}
-          />
-          <Route
-            path="/projects"
-            render={() => {
-              return (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Projects />
-                </Suspense>
-              );
-            }}
-          />
-          <Route
-            path="/tasks"
-            render={() => {
-              return (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <Tasks />
-                </Suspense>
-              );
-            }}
-          />
+          <ProtectedRoute path="/" exact={true} component={Projects} />
+          <ProtectedRoute path="/projects" component={Projects} />
+          <ProtectedRoute path="/tasks" component={Tasks} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signout" component={SignOut} />
           <Redirect to="/" />
